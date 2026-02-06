@@ -18,10 +18,10 @@ body {
 }
 
 #yesButton {
-    position: relative; /* Change from absolute */
+    position: relative; 
     z-index: 10;
     transition: transform 0.3s ease;
-    /* Remove the left: 35% and top: 50% */
+    transform-origin: top; /* This makes it grow downwards/sideways instead of up into the GIF */
 }
 .header_text {
     font-family: 'Nunito';
@@ -56,10 +56,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    .gif_container {
     margin-bottom: 20px;
-    z-index: 1; /* Keeps GIF behind buttons if they overlap */
-}
+    width: 100%;
 }
 
 img {

@@ -21,59 +21,49 @@
                         window.location.href = "yes.html";
                     }
 
-                    let shrinkingBorder = 1; // 80% of the window size to keep buttons visible
-                    let yesScale = 1; // Start at normal size (100%)
-                                        
+                    let shrinkingBorder = 1; 
+                    let yesScale = 1; 
+
                     function moveButton() {
-                        const btn = document.getElementById('noButton');
-                        const yesBtn = document.getElementById('yesButton');
+    const btn = document.getElementById('noButton');
+    const yesBtn = document.getElementById('yesButton');
 
-                        if (yesScale < 10) { // Caps the growth at 3x the original size
-                            yesScale += 0.5;
-                            yesBtn.style.transform = `scale(${yesScale})`;
-                        }
-                        
-                        // Force the button to follow screen-wide coordinates
-                        btn.style.position = 'fixed';
+    // 1. Grow the Yes Button 
+    // We REMOVE the .style.left, .top, and .position changes for yesBtn
+    if (yesScale < 10) {
+        yesScale += 0.5;
+    }
+    
+    // Only change the scale. It stays in its vertical "sandwich" spot.
+    yesBtn.style.transform = `scale(${yesScale})`;
 
-                        // 1. Shrink the multiplier
-                        if (shrinkingBorder > 0.1) {
-                            shrinkingBorder -= 0.05; // Shrink slower for more fun
-                        }
+    // 2. Prepare the No Button
+    // This stays 'fixed' so it can fly anywhere on the screen
+    btn.style.position = 'fixed'; 
+    btn.style.transform = "none"; 
 
-                        // 2. Get screen dimensions
-                        const windowW = window.innerWidth;
-                        const windowH = window.innerHeight;
-                        const centerX = windowW / 2;
-                        const centerY = windowH / 2;
+    // 3. Shrink the multiplier (your existing math)
+    if (shrinkingBorder > 0.1) {
+        shrinkingBorder -= 0.05; 
+    }
 
-                        console.log(`Window: ${windowW}x${windowH}, Center: (${centerX}, ${centerY}), Border: ${shrinkingBorder}`);
+    // 4. Screen dimensions for the No button
+    const windowW = window.innerWidth;
+    const windowH = window.innerHeight;
+    const centerX = windowW / 2;
+    const centerY = windowH / 2;
 
-                        // 3. Calculate the "Allowed Range" based on shrinkingBorder
-                        // This creates a box that stays centered but gets smaller
-                        const rangeX = Math.floor((windowW - btn.offsetWidth) * shrinkingBorder);
-                        const rangeY = Math.floor((windowH - btn.offsetHeight) * shrinkingBorder);
+    // 5. Calculate range and random position (your existing math)
+    const rangeX = Math.floor((windowW - btn.offsetWidth) * shrinkingBorder);
+    const rangeY = Math.floor((windowH - btn.offsetHeight) * shrinkingBorder);
 
-                        // 4. Generate random position within that centered box
-                        // This math ensures the button stays around the center
-                        const randomX = Math.floor((centerX - (rangeX / 2)) + (Math.random() * (rangeX - btn.offsetWidth)));
-                        const randomY = Math.floor((centerY - (rangeY / 2)) + (Math.random() * (rangeY - btn.offsetHeight)));
+    const randomX = Math.floor((centerX - (rangeX / 2)) + (Math.random() * (rangeX - btn.offsetWidth)));
+    const randomY = Math.floor((centerY - (rangeY / 2)) + (Math.random() * (rangeY - btn.offsetHeight)));
 
-                        // 5. Clear the CSS transform so it doesn't mess up the math
-                        btn.style.transform = "none";
-
-                        // 6. Apply coordinates
-                        btn.style.left = randomX + "px";
-                        btn.style.top = randomY + "px";
-
-                        console.log(`Moved No Button to: (${randomX}, ${randomY}) within range (${rangeX}, ${rangeY})`);
-                        console.log('Button position after move:', btn.style.left, btn.style.top);
-
-                        
-
-
-                        
-                    }
+    // 6. Apply coordinates to No button ONLY
+    btn.style.left = randomX + "px";
+    btn.style.top = randomY + "px";
+}
 
                 </script> 
             </div>
