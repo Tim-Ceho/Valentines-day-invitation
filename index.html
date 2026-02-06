@@ -28,39 +28,34 @@
     const btn = document.getElementById('noButton');
     const yesBtn = document.getElementById('yesButton');
 
-    // 1. Grow the Yes Button 
-    // We REMOVE the .style.left, .top, and .position changes for yesBtn
-    if (yesScale < 10) {
+    // 1. Grow the Yes Button from its center
+    if (yesScale < 15) { // Increased cap so it can really cover the screen
         yesScale += 0.5;
+        yesBtn.style.transform = `scale(${yesScale})`;
     }
     
-    // Only change the scale. It stays in its vertical "sandwich" spot.
-    yesBtn.style.transform = `scale(${yesScale})`;
+    // 2. No Button Handoff
+    // The moment it's touched, it becomes fixed so it can fly over the GIF/Text
+    btn.style.position = 'fixed';
+    btn.style.transform = "none";
 
-    // 2. Prepare the No Button
-    // This stays 'fixed' so it can fly anywhere on the screen
-    btn.style.position = 'fixed'; 
-    btn.style.transform = "none"; 
-
-    // 3. Shrink the multiplier (your existing math)
+    // 3. Your existing Shrinking Border Math
     if (shrinkingBorder > 0.1) {
         shrinkingBorder -= 0.05; 
     }
 
-    // 4. Screen dimensions for the No button
     const windowW = window.innerWidth;
     const windowH = window.innerHeight;
     const centerX = windowW / 2;
     const centerY = windowH / 2;
 
-    // 5. Calculate range and random position (your existing math)
     const rangeX = Math.floor((windowW - btn.offsetWidth) * shrinkingBorder);
     const rangeY = Math.floor((windowH - btn.offsetHeight) * shrinkingBorder);
 
     const randomX = Math.floor((centerX - (rangeX / 2)) + (Math.random() * (rangeX - btn.offsetWidth)));
     const randomY = Math.floor((centerY - (rangeY / 2)) + (Math.random() * (rangeY - btn.offsetHeight)));
 
-    // 6. Apply coordinates to No button ONLY
+    // 4. Apply coordinates
     btn.style.left = randomX + "px";
     btn.style.top = randomY + "px";
 }

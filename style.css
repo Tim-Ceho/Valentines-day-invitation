@@ -18,10 +18,11 @@ body {
 }
 
 #yesButton {
-    position: relative; 
-    z-index: 10;
+    position: relative;
+    z-index: 20; /* Keep it above the GIF and No button */
     transition: transform 0.3s ease;
-    transform-origin: top; /* This makes it grow downwards/sideways instead of up into the GIF */
+    /* Make sure this is NOT transform-origin: top */
+    transform-origin: center; 
 }
 .header_text {
     font-family: 'Nunito';
@@ -34,12 +35,13 @@ body {
 }
 
 .buttons {
-    margin-top: 30px; /* Give the buttons some space below the GIF */
     display: flex;
-    gap: 20px; /* Puts a gap between Yes and No automatically */
     justify-content: center;
     align-items: center;
+    gap: 20px;
     width: 100%;
+    min-height: 150px; /* Space for the button to grow without pushing the GIF */
+    position: relative;
 }
 
 .btn {
