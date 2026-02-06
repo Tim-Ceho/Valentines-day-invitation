@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="./style.css">
+        
+    </head> 
+    <body>
+        <div class="container">
+            <div >
+                <h1 class = "header_text">Would you like to be my Valentine?</h1>
+                <h1 class = "header_text"></h1>
+            </div>
+            <div class="gif_container">
+                <img src="https://media.tenor.com/-fxSxMDttpcAAAAi/anime-love.gif" alt="Cute animated illustration">
+            </div>
+            <div class = "buttons">
+                <button class="btn" id = "yesButton" onclick="nextPage()">Yes</button>
+                <button class="btn" id="noButton" onmouseover="moveButton()" onclick="moveButton()">No</button>
+                <script>
+                    function nextPage() {
+                        window.location.href = "yes.html";
+                    }
+
+                    let shrinkingBorder = 1; // 80% of the window size to keep buttons visible
+                    
+                    function moveButton() {
+                        const btn = document.getElementById('noButton');
+                        
+                        // Force the button to follow screen-wide coordinates
+                        btn.style.position = 'fixed';
+
+                        // 1. Shrink the multiplier
+                        if (shrinkingBorder > 0.1) {
+                            shrinkingBorder -= 0.05; // Shrink slower for more fun
+                        }
+
+                        // 2. Get screen dimensions
+                        const windowW = window.innerWidth;
+                        const windowH = window.innerHeight;
+                        const centerX = windowW / 2;
+                        const centerY = windowH / 2;
+
+                        console.log(`Window: ${windowW}x${windowH}, Center: (${centerX}, ${centerY}), Border: ${shrinkingBorder}`);
+
+                        // 3. Calculate the "Allowed Range" based on shrinkingBorder
+                        // This creates a box that stays centered but gets smaller
+                        const rangeX = Math.floor((windowW - btn.offsetWidth) * shrinkingBorder);
+                        const rangeY = Math.floor((windowH - btn.offsetHeight) * shrinkingBorder);
+
+                        // 4. Generate random position within that centered box
+                        // This math ensures the button stays around the center
+                        const randomX = Math.floor((centerX - (rangeX / 2)) + (Math.random() * (rangeX - btn.offsetWidth)));
+                        const randomY = Math.floor((centerY - (rangeY / 2)) + (Math.random() * (rangeY - btn.offsetHeight)));
+
+                        // 5. Clear the CSS transform so it doesn't mess up the math
+                        btn.style.transform = "none";
+
+                        // 6. Apply coordinates
+                        btn.style.left = randomX + "px";
+                        btn.style.top = randomY + "px";
+
+                        console.log(`Moved No Button to: (${randomX}, ${randomY}) within range (${rangeX}, ${rangeY})`);
+                        console.log('Button position after move:', btn.style.left, btn.style.top);
+
+                        //
+                    }
+
+                </script> 
+            </div>
+        </div>
+       
+    </body> 
+</html>
