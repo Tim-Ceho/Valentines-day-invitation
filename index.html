@@ -22,9 +22,16 @@
                     }
 
                     let shrinkingBorder = 1; // 80% of the window size to keep buttons visible
-                    
+                    let yesScale = 1; // Start at normal size (100%)
+                                        
                     function moveButton() {
                         const btn = document.getElementById('noButton');
+                        const yesBtn = document.getElementById('yesButton');
+
+                        if (yesScale < 10) { // Caps the growth at 3x the original size
+                            yesScale += 0.5;
+                            yesBtn.style.transform = `scale(${yesScale})`;
+                        }
                         
                         // Force the button to follow screen-wide coordinates
                         btn.style.position = 'fixed';
@@ -62,7 +69,10 @@
                         console.log(`Moved No Button to: (${randomX}, ${randomY}) within range (${rangeX}, ${rangeY})`);
                         console.log('Button position after move:', btn.style.left, btn.style.top);
 
-                        //
+                        
+
+
+                        
                     }
 
                 </script> 

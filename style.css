@@ -25,6 +25,7 @@ body {
     /* Use percentages to start it near the center */
     left: 35%; 
     top: 50%;
+    transition: transform 0.3s ease
 }
 
 .header_text {
