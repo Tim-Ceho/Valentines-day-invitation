@@ -5,60 +5,136 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head> 
     <body>
-        <div class="container">
-            <div >
-                <h1 class = "header_text">Would you like to be my Valentine?</h1>
-                <h1 class = "header_text"></h1>
+        <div class="container" id="main-content">
+            <div>
+                <h1 class="header_text">Would you like to be my Valentine?</h1>
             </div>
             <div class="gif_container">
                 <img src="https://media.tenor.com/-fxSxMDttpcAAAAi/anime-love.gif" alt="Cute animated illustration">
             </div>
-            <div class = "buttons">
-                <button class="btn" id = "yesButton" onclick="nextPage()">Yes</button>
+            <div class="buttons">
+                <button class="btn" id="yesButton" onclick="handleYesClick()">Yes</button>
                 <button class="btn" id="noButton" onmouseover="moveButton()" onclick="moveButton()">No</button>
+            </div>
+        </div>
+
+        <div id="final-step" style="display:none; text-align: center; margin-top: 50px;">
+            <h2 class="header_text">Great! One last thing...</h2>
+            <p style="color:white; font-family: 'Nunito';">What's your favorite food for our date?</p>
+            <form id="valentine-form" action="https://formspree.io/f/mjgevgbg" method="POST" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                
+                <p style="color:white; font-family: 'Nunito'; margin-top: 10px;">Pick a date vibe:</p>
+                <div style="display: flex; flex-direction: column; gap: 10px; width: 80%; max-width: 300px;">
+                    <label class="radio-option">
+                        <input type="radio" name="vibe" value="Fancy Dinner" required> 🥂 Fancy Dinner
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="vibe" value="Movie Night"> 🍿 Movie Night
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="vibe" value="Adventure/Walk"> 🎡 Surprise Adventure
+                    </label>
+                </div>
+
+                <p style="color:white; font-family: 'Nunito'; margin-top: 10px;">Any specific cravings? (Optional)</p>
+                <textarea name="extra_notes" placeholder="e.g. Sushi, Italian, or just 'Surprise me!'" 
+                        style="padding: 10px; border-radius: 8px; border: none; width: 80%; max-width: 300px; height: 60px; font-family: sans-serif;"></textarea>
+
+                <button type="submit" class="btn" style="background-color: #ff4d6d; color: white; margin-top: 10px;">Send to Tim</button>
+            </form>
+        </div>
+
+        <div id="success-message" style="display:none; text-align: center;">
+            <h2 class="header_text">Perfect! ❤️</h2>
+            <p style="color:white; font-family: 'Nunito';">I've got it. See you soon!</p>
+            <img src="https://media.tenor.com/gU_rh69vS00AAAAi/kawaii-cute.gif" style="max-width: 150px; margin-top: 20px;">
+        </div>
+                
+                
+                
+                
+                
+                
+                
+                
                 <script>
-                    function nextPage() {
-                        window.location.href = "yes.html";
+                   function handleYesClick() {
+                        // 1. Hide the entire main container
+                        document.getElementById('main-content').style.display = 'none';
+
+                        // 2. Show the final question
+                        const finalStep = document.getElementById('final-step');
+                        finalStep.style.display = 'block';
+
+                        const form = document.getElementById("valentine-form");
+
+                        form.addEventListener("submit", async function(event) {
+                            event.preventDefault(); // Prevents the page from redirecting
+                            
+                            const status = document.getElementById("success-message");
+                            const data = new FormData(event.target);
+                            
+                            // Send the data to Formspree in the background
+                            fetch(event.target.action, {
+                                method: form.method,
+                                body: data,
+                                headers: {
+                                    'Accept': 'application/json'
+                                }
+                            }).then(response => {
+                                if (response.ok) {
+                                    // Hide the form and show your custom "See you soon" message
+                                    form.style.display = "none";
+                                    document.querySelector("#final-step p").style.display = "none";
+                                    document.querySelector("#final-step h2").style.display = "none";
+                                    status.style.display = "block";
+                                } else {
+                                    alert("Oops! There was a problem submitting your form");
+                                }
+                            }).catch(error => {
+                                alert("Oops! There was a problem connecting to the server");
+                            });
+                        });
                     }
 
                     let shrinkingBorder = 1; 
                     let yesScale = 1; 
 
                     function moveButton() {
-    const btn = document.getElementById('noButton');
-    const yesBtn = document.getElementById('yesButton');
+                    const btn = document.getElementById('noButton');
+                    const yesBtn = document.getElementById('yesButton');
 
-    // 1. Grow the Yes Button from its center
-    if (yesScale < 15) { // Increased cap so it can really cover the screen
-        yesScale += 0.5;
-        yesBtn.style.transform = `scale(${yesScale})`;
-    }
-    
-    // 2. No Button Handoff
-    // The moment it's touched, it becomes fixed so it can fly over the GIF/Text
-    btn.style.position = 'fixed';
-    btn.style.transform = "none";
+                    // 1. Grow the Yes Button from its center
+                    if (yesScale < 15) { // Increased cap so it can really cover the screen
+                        yesScale += 0.5;
+                        yesBtn.style.transform = `scale(${yesScale})`;
+                    }
+                    
+                    // 2. No Button Handoff
+                    // The moment it's touched, it becomes fixed so it can fly over the GIF/Text
+                    btn.style.position = 'fixed';
+                    btn.style.transform = "none";
 
-    // 3. Your existing Shrinking Border Math
-    if (shrinkingBorder > 0.1) {
-        shrinkingBorder -= 0.05; 
-    }
+                    // 3. Your existing Shrinking Border Math
+                    if (shrinkingBorder > 0.1) {
+                        shrinkingBorder -= 0.05; 
+                    }
 
-    const windowW = window.innerWidth;
-    const windowH = window.innerHeight;
-    const centerX = windowW / 2;
-    const centerY = windowH / 2;
+                    const windowW = window.innerWidth;
+                    const windowH = window.innerHeight;
+                    const centerX = windowW / 2;
+                    const centerY = windowH / 2;
 
-    const rangeX = Math.floor((windowW - btn.offsetWidth) * shrinkingBorder);
-    const rangeY = Math.floor((windowH - btn.offsetHeight) * shrinkingBorder);
+                    const rangeX = Math.floor((windowW - btn.offsetWidth) * shrinkingBorder);
+                    const rangeY = Math.floor((windowH - btn.offsetHeight) * shrinkingBorder);
 
-    const randomX = Math.floor((centerX - (rangeX / 2)) + (Math.random() * (rangeX - btn.offsetWidth)));
-    const randomY = Math.floor((centerY - (rangeY / 2)) + (Math.random() * (rangeY - btn.offsetHeight)));
+                    const randomX = Math.floor((centerX - (rangeX / 2)) + (Math.random() * (rangeX - btn.offsetWidth)));
+                    const randomY = Math.floor((centerY - (rangeY / 2)) + (Math.random() * (rangeY - btn.offsetHeight)));
 
-    // 4. Apply coordinates
-    btn.style.left = randomX + "px";
-    btn.style.top = randomY + "px";
-}
+                    // 4. Apply coordinates
+                    btn.style.left = randomX + "px";
+                    btn.style.top = randomY + "px";
+                }
 
                 </script> 
             </div>
