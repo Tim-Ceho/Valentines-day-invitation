@@ -5,6 +5,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head> 
     <body>
+
+        <div class="monster-background">
+            <img src="images/monster.png" class="energy-monster">
+            <img src="images/monster.png" class="energy-monster">
+            <img src="images/monster.png" class="energy-monster">
+            <img src="images/monster.png" class="energy-monster">
+        </div>
+
         <div class="container" id="main-content">
             <div>
                 <h1 class="header_text">Would you like to be my Valentine?</h1>
@@ -20,11 +28,10 @@
 
         <div id="final-step" style="display:none; text-align: center; margin-top: 50px;">
             <h2 class="header_text">Great! One last thing...</h2>
-            <p style="color:white; font-family: 'Nunito';">What's your favorite food for our date?</p>
-            <form id="valentine-form" action="https://formspree.io/f/mjgevgbg" method="POST" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
-                
-                <p style="color:white; font-family: 'Nunito'; margin-top: 10px;">Pick a date vibe:</p>
-                <div style="display: flex; flex-direction: column; gap: 10px; width: 80%; max-width: 300px;">
+            <p class="form-instruction">Pick a date vibe:</p>
+            
+            <form id="valentine-form" action="https://formspree.io/f/mjgevgbg" method="POST">
+                <div class="radio-group">
                     <label class="radio-option">
                         <input type="radio" name="vibe" value="Fancy Dinner" required> 🥂 Fancy Dinner
                     </label>
@@ -36,11 +43,10 @@
                     </label>
                 </div>
 
-                <p style="color:white; font-family: 'Nunito'; margin-top: 10px;">Any specific cravings? (Optional)</p>
-                <textarea name="extra_notes" placeholder="e.g. Sushi, Italian, or just 'Surprise me!'" 
-                        style="padding: 10px; border-radius: 8px; border: none; width: 80%; max-width: 300px; height: 60px; font-family: sans-serif;"></textarea>
+                <p class="form-instruction">Any specific cravings? (Optional)</p>
+                <textarea name="extra_notes" placeholder="e.g. Sushi, Italian, or just 'Surprise me!'"></textarea>
 
-                <button type="submit" class="btn" style="background-color: #ff4d6d; color: white; margin-top: 10px;">Send to Tim</button>
+                <button type="submit" class="btn" id="submit-btn">Send to Tim</button>
             </form>
         </div>
 
