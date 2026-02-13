@@ -11,49 +11,49 @@
             <img src="images/monster.png" class="energy-monster">
             <img src="images/monster.png" class="energy-monster">
             <img src="images/monster.png" class="energy-monster">
+            <img src="images/monster.png" class="energy-monster">
+            <img src="images/monster.png" class="energy-monster">
         </div>
 
         <div class="container" id="main-content">
             <div>
-                <h1 class="header_text">Would you like to be my Valentine?</h1>
+                <h1 class="header_text">Dali bi bila moja valentina?</h1>
             </div>
             <div class="gif_container">
                 <img src="images/batman1.gif" alt="Batman and Hello Kitty working out">
             </div>
             <div class="buttons">
-                <button class="btn" id="yesButton" onclick="handleYesClick()">Yes</button>
-                <button class="btn" id="noButton" onmouseover="moveButton()" onclick="moveButton()">No</button>
+                <button class="btn" id="yesButton" onclick="handleYesClick()">Da</button>
+                <button class="btn" id="noButton" onmouseover="moveButton()" onclick="moveButton()">Ne</button>
             </div>
         </div>
 
         <div id="final-step" style="display:none; text-align: center; margin-top: 50px;">
-            <h2 class="header_text">Great! One last thing...</h2>
-            <p class="form-instruction">Pick a date vibe:</p>
+            <h2 class="header_text">Odlićno!</h2>
+            <p class="joke-text">(kao da si imala izbor...)</p>
+            <p class="form-instruction">Koje vreme ti više odgovara?🍿</p>
             
             <form id="valentine-form" action="https://formspree.io/f/mjgevgbg" method="POST">
                 <div class="radio-group">
                     <label class="radio-option">
-                        <input type="radio" name="vibe" value="Fancy Dinner" required> 🥂 Fancy Dinner
+                        <input type="radio" name="Kad?" value="Friday at 20:30" required> Petak u 20:30
                     </label>
                     <label class="radio-option">
-                        <input type="radio" name="vibe" value="Movie Night"> 🍿 Movie Night
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="vibe" value="Adventure/Walk"> 🎡 Surprise Adventure
+                        <input type="radio" name="Kad?" value="Sunday at 20:30"> Nedelja u 20:30
                     </label>
                 </div>
 
-                <p class="form-instruction">Any specific cravings? (Optional)</p>
-                <textarea name="extra_notes" placeholder="e.g. Sushi, Italian, or just 'Surprise me!'"></textarea>
+                <p class="form-instruction">Želiš još nešto osim</p>
+                <textarea name="extra_notes" placeholder="kokica, kole zero i čoko bananica?"></textarea>
 
-                <button type="submit" class="btn" id="submit-btn">Send to Tim</button>
+                <button type="submit" class="btn" id="submit-btn">Šalji Tim-u</button>
             </form>
         </div>
 
         <div id="success-message" style="display:none; text-align: center;">
-            <h2 class="header_text">Perfect! ❤️</h2>
-            <p style="color:white; font-family: 'Nunito';">I've got it. See you soon!</p>
-            <img src="images/batman2.gif" style="max-width: 150px; margin-top: 20px;">
+            <h2 class="header_text">Odlično! 🩷</h2>
+            <p style="color:white; font-family: 'Nunito';">Vidimo se uskoro!</p>
+            <!-- <img src="images/batman2.gif" style="max-width: 150px; margin-top: 20px;"> -->
         </div>
                 
                 
@@ -91,8 +91,7 @@
                                 if (response.ok) {
                                     // Hide the form and show your custom "See you soon" message
                                     form.style.display = "none";
-                                    document.querySelector("#final-step p").style.display = "none";
-                                    document.querySelector("#final-step h2").style.display = "none";
+                                    finalStep.style.display = "none";
                                     status.style.display = "block";
                                 } else {
                                     alert("Oops! There was a problem submitting your form");
